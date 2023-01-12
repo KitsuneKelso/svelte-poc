@@ -1,24 +1,34 @@
 <script lang="ts">
+	import { isLetter } from '../utils';
 	import letters from '../constants/letters';
-	import { keyCount, timesReset } from '../store';
+	import { keyCount } from '../store';
 
 	export let value = '';
 
 	function handleClick(clickedKey: string) {
 		value = value + clickedKey;
+		keyCount.increment();
+	}
 
-		// store update
-		keyCount.update((cur) => cur + 1);
+	function handleKeydown(event: KeyboardEvent) {
+		if (event.key === 'Backspace' && value.length > 0) {
+			value = value.slice(0, -1);
+			keyCount.decrement();
+		}
+
+		if (isLetter(event.key)) {
+			value = value + event.key.toUpperCase();
+			keyCount.increment();
+		}
 	}
 
 	export function clear() {
 		value = '';
-
-		// store reset
-		keyCount.set(0);
-		timesReset.update((cur) => cur + 1);
+		keyCount.reset();
 	}
 </script>
+
+<svelte:window on:keydown={handleKeydown} />
 
 <div class="keyboard">
 	{#each letters as letter}

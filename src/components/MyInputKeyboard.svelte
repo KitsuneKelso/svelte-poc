@@ -1,21 +1,11 @@
 <script lang="ts">
-	import { onDestroy } from 'svelte';
 	import Keyboard from './Keyboard.svelte';
-	import { keyCount, timesReset } from '../store';
+	import { keyCount } from '../store';
 
 	let input = '';
 	let keyboard: {
 		clear: () => void;
 	};
-
-	/* --- store start --- */
-	let keysTyped = 0;
-	const unsubscribe = keyCount.subscribe((val) => {
-		keysTyped = val;
-	});
-
-	onDestroy(unsubscribe);
-	/* ---- store end ---- */
 </script>
 
 <div class="container">
@@ -24,11 +14,7 @@
 		<button on:click={keyboard.clear}>Clear</button>
 	</div>
 
-	<!-- Manual subscription -->
-	<span><i>Letters written:</i> {keysTyped}</span>
-
-	<!-- Auto-subscription -->
-	<span><i>Times reset:</i> {$timesReset}</span>
+	<span><i>Letters written:</i> {$keyCount}</span>
 
 	<Keyboard bind:value={input} bind:this={keyboard} />
 </div>
