@@ -4,10 +4,15 @@
 	import { onMount } from 'svelte';
 
 	let word = '';
+	let error = false;
 
 	onMount(async () => {
-		const newWord = await getWord();
-		word = newWord;
+		try {
+			const newWord = await getWord();
+			word = newWord;
+		} catch (e) {
+			error = true;
+		}
 	});
 </script>
 
@@ -18,6 +23,11 @@
 
 <section>
 	<h1>Svelte Hangman</h1>
+
+	{#if error}
+		<p class="error">Something went wrong.</p>
+	{/if}
+
 	<p>{word}</p>
 	<MyInputKeyboard />
 </section>
@@ -28,5 +38,10 @@
 		flex-direction: column;
 		align-items: center;
 		justify-content: center;
+	}
+
+	.error {
+		color: red;
+		font-weight: bold;
 	}
 </style>
