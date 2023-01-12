@@ -1,7 +1,7 @@
 <script lang="ts">
-	import { isLetter } from '../utils';
-	import letters from '../constants/letters';
-	import { keyCount } from '../store';
+	import { letters } from '$lib/constants';
+	import { keyCount } from '$lib/store';
+	import { isLetter } from '$lib/utils';
 
 	export let value = '';
 

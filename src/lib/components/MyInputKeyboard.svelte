@@ -1,6 +1,6 @@
 <script lang="ts">
+	import { keyCount } from '$lib/store';
 	import Keyboard from './Keyboard.svelte';
-	import { keyCount } from '../store';
 
 	let input = '';
 	let keyboard: {
