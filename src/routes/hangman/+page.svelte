@@ -7,14 +7,21 @@
 	let word = '';
 	let error = false;
 
-	onMount(async () => {
+	const newGame = async () => {
 		try {
 			const newWord = await getWord();
 			word = newWord;
 		} catch (e) {
 			error = true;
 		}
-	});
+	};
+
+	const handleClick = () => {
+		word = '';
+		newGame();
+	};
+
+	onMount(newGame);
 </script>
 
 <svelte:head>
@@ -23,7 +30,10 @@
 </svelte:head>
 
 <section>
-	<h1>Svelte Hangman</h1>
+	<div class="header">
+		<span class="title">Svelte Hangman</span>
+		<button on:click={handleClick}>New Game</button>
+	</div>
 
 	{#if error}
 		<p class="error">Something went wrong.</p>
@@ -31,7 +41,7 @@
 
 	<div class="word">
 		{#if word.length === 0}
-			<span><i>Loading, please wait...</i></span>
+			<span in:fly={{ y: -20 }}><i>Loading new word...</i></span>
 		{/if}
 		{#key word}
 			<span in:fly={{ y: -20 }}>{word}</span>
@@ -51,6 +61,20 @@
 		align-items: center;
 		justify-content: flex-start;
 		flex-grow: 1;
+	}
+
+	.header {
+		border-bottom: 2px solid rebeccapurple;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		width: 100%;
+		padding: 16px;
+		box-sizing: border-box;
+	}
+
+	.title {
+		font-size: 2em;
 	}
 
 	.error {
