@@ -1,22 +1,34 @@
-# create-svelte
+# Svelte Proof of Concept App
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
+Hi and welcome! This is a simple PoC running [Svelte](https://svelte.dev/).
 
-## Creating a project
+## Prerequisites
 
-If you're seeing this, you've probably already done this step. Congrats!
+To get started, [generate a new API Key for the API Ninjas Directory](https://api-ninjas.com/profile).
+
+Copy this key and create a new file in the root of this project named:
+
+### `.env.local`
+
+In this file, add your API Key by replacing `<YOU_API_KEY_HERE>` with your key:
+
+```js
+VITE_API_KEY=<YOU_API_KEY_HERE>
+```
+
+## Installation
+
+Install all required dependencies by running:
 
 ```bash
-# create a new project in the current directory
-npm create svelte@latest
-
-# create a new project in my-app
-npm create svelte@latest my-app
+npm install
 ```
+
+Make sure you have the API key set up as previously stated, and then you're ready to rock! 😎
 
 ## Developing
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+Start the app by running:
 
 ```bash
 npm run dev
@@ -36,3 +48,11 @@ npm run build
 You can preview the production build with `npm run preview`.
 
 > To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+
+## Routes
+
+These are the routes besides the standard Svelte routes that I have set up.
+
+### /hangman
+
+This is a simple implementation of [Hangman, the classic guessing game](<https://en.wikipedia.org/wiki/Hangman_(game)>). A random word will be fetched from [the API Ninjas Random Word endpoint](https://api-ninjas.com/api/randomword).
