@@ -19,6 +19,7 @@
 	}
 
 	function handleKeydown(event: KeyboardEvent) {
+		console.log(event);
 		if (event.key === 'Backspace' && value.length > 0) {
 			value = value.slice(0, -1);
 			keyCount.decrement();

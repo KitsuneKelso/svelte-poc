@@ -22,7 +22,7 @@ function createHangmanGame() {
 
 	const guessLetter = (letter: string) => {
 		update((self) => {
-			self.guessedLetters.push(letter);
+			self.guessedLetters.push(letter.toUpperCase());
 			return self;
 		});
 	};
