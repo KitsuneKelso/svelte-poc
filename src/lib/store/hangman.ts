@@ -5,13 +5,8 @@ interface hangmanStore {
 	guessedLetters: string[];
 }
 
-const initialState: hangmanStore = {
-	word: null,
-	guessedLetters: []
-};
-
 function createHangmanGame() {
-	const { subscribe, set, update } = writable<hangmanStore>(initialState);
+	const { subscribe, set, update } = writable<hangmanStore>({ word: null, guessedLetters: [] });
 
 	const setNewWord = (word: string) => {
 		update((self) => {
@@ -27,11 +22,13 @@ function createHangmanGame() {
 		});
 	};
 
+	const reset = () => set({ word: null, guessedLetters: [] });
+
 	return {
 		subscribe,
 		setNewWord,
 		guessLetter,
-		reset: () => set(initialState)
+		reset
 	};
 }
 
