@@ -2,12 +2,20 @@
 	import { letters } from '$lib/constants';
 	import { keyCount } from '$lib/store';
 	import { isLetter } from '$lib/utils';
+	import { createEventDispatcher } from 'svelte';
 
 	export let value = '';
+
+	const dispatch = createEventDispatcher();
+
+	function dispatchKeypress(letter: string) {
+		dispatch('keypress', { letter });
+	}
 
 	function handleClick(clickedKey: string) {
 		value = value + clickedKey;
 		keyCount.increment();
+		dispatchKeypress(clickedKey);
 	}
 
 	function handleKeydown(event: KeyboardEvent) {
@@ -19,6 +27,7 @@
 		if (isLetter(event.key)) {
 			value = value + event.key.toUpperCase();
 			keyCount.increment();
+			dispatchKeypress(event.key);
 		}
 	}
 

@@ -1,6 +1,7 @@
-<script>
+<script lang="ts">
 	import { getWord } from '$lib/api';
-	import MyInputKeyboard from '$lib/components/MyInputKeyboard.svelte';
+	import Keyboard from '$lib/components/Keyboard.svelte';
+	import { hangmanGame } from '$lib/store';
 	import { onMount } from 'svelte';
 	import { fly } from 'svelte/transition';
 
@@ -19,6 +20,10 @@
 	const handleClick = () => {
 		word = '';
 		newGame();
+	};
+
+	const handleLetter = (event: CustomEvent<any>) => {
+		hangmanGame.guessLetter(event.detail.letter);
 	};
 
 	onMount(newGame);
@@ -48,8 +53,12 @@
 		{/key}
 	</div>
 
+	<div>
+		<span>{$hangmanGame.guessedLetters}</span>
+	</div>
+
 	<div class="controls">
-		<MyInputKeyboard />
+		<Keyboard on:keypress={handleLetter} />
 	</div>
 </section>
 
