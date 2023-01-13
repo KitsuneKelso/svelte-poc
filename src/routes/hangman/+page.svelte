@@ -1,29 +1,36 @@
 <script lang="ts">
 	import { getWord } from '$lib/api';
-	import Keyboard from '$lib/components/Keyboard.svelte';
+	import { Keyboard } from '$lib/components';
 	import { hangmanGame } from '$lib/store';
+	import type { KeypressEvent } from '$lib/types';
 	import { onMount } from 'svelte';
 	import { fly } from 'svelte/transition';
 
-	let word = '';
+	let loading = false;
 	let error = false;
 
 	const newGame = async () => {
+		loading = true;
 		try {
+			hangmanGame.reset();
 			const newWord = await getWord();
-			word = newWord;
+			hangmanGame.setNewWord(newWord);
+			loading = false;
 		} catch (e) {
 			error = true;
+			loading = false;
 		}
 	};
 
 	const handleClick = () => {
-		word = '';
 		newGame();
 	};
 
-	const handleLetter = (event: CustomEvent<any>) => {
-		hangmanGame.guessLetter(event.detail.letter);
+	const handleLetter = (event: KeypressEvent) => {
+		const pressedLetter = event.detail.letter;
+		if (!$hangmanGame.guessedLetters.includes(pressedLetter)) {
+			hangmanGame.guessLetter(event.detail.letter);
+		}
 	};
 
 	onMount(newGame);
@@ -45,12 +52,13 @@
 	{/if}
 
 	<div class="word">
-		{#if word.length === 0}
+		{#if loading}
 			<span in:fly={{ y: -20 }}><i>Loading new word...</i></span>
+		{:else}
+			{#key $hangmanGame.word}
+				<span in:fly={{ y: -20 }}>{$hangmanGame.word}</span>
+			{/key}
 		{/if}
-		{#key word}
-			<span in:fly={{ y: -20 }}>{word}</span>
-		{/key}
 	</div>
 
 	<div>

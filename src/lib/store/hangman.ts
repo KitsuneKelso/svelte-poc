@@ -1,13 +1,24 @@
 import { writable } from 'svelte/store';
 
 interface hangmanStore {
+	word: null | string;
 	guessedLetters: string[];
 }
 
+const initialState: hangmanStore = {
+	word: null,
+	guessedLetters: []
+};
+
 function createHangmanGame() {
-	const { subscribe, set, update } = writable<hangmanStore>({
-		guessedLetters: []
-	});
+	const { subscribe, set, update } = writable<hangmanStore>(initialState);
+
+	const setNewWord = (word: string) => {
+		update((self) => {
+			self.word = word;
+			return self;
+		});
+	};
 
 	const guessLetter = (letter: string) => {
 		update((self) => {
@@ -18,9 +29,9 @@ function createHangmanGame() {
 
 	return {
 		subscribe,
-		set,
-		update,
-		guessLetter
+		setNewWord,
+		guessLetter,
+		reset: () => set(initialState)
 	};
 }
 
