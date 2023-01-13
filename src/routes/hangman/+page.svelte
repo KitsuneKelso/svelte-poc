@@ -6,11 +6,13 @@
 	import { onMount } from 'svelte';
 	import { fly } from 'svelte/transition';
 
-	let loading = false;
 	let error = false;
+	let loading = false;
 
 	const newGame = async () => {
+		error = false;
 		loading = true;
+
 		try {
 			hangmanGame.reset();
 			const newWord = await getWord();
@@ -63,9 +65,9 @@
 </section>
 
 <div class="debugger">
-	<code><u>Debugger</u></code>
-	<code>Word: {$hangmanGame.word}</code>
-	<code>Guessed: {$hangmanGame.guessedLetters}</code>
+	<code><b><u>Debugger</u></b></code>
+	<code><b>Word:</b> {$hangmanGame.word ? $hangmanGame.word : ''}</code>
+	<code><b>Guessed:</b> {$hangmanGame.guessedLetters}</code>
 </div>
 
 <style>
@@ -116,6 +118,7 @@
 		position: fixed;
 		bottom: 20px;
 		right: 20px;
+		min-width: 200px;
 		display: flex;
 		flex-direction: column;
 		background: black;
