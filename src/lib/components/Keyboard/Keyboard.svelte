@@ -2,6 +2,7 @@
 	import { letters } from '$lib/constants';
 	import { isLetter } from '$lib/utils';
 	import { createEventDispatcher } from 'svelte';
+	import Key from './Key.svelte';
 
 	export let disabled: boolean;
 	export let disabledLetters: string[];
@@ -31,13 +32,11 @@
 
 <div class="keyboard">
 	{#each letters as letter}
-		<button
-			class="key"
-			on:click={() => handleClick(letter)}
+		<Key
+			{letter}
 			disabled={disabled || disabledLetters.includes(letter)}
-		>
-			<code>{letter}</code>
-		</button>
+			onClick={() => handleClick(letter)}
+		/>
 	{/each}
 </div>
 
@@ -48,7 +47,7 @@
 		align-items: center;
 		justify-content: center;
 		flex-wrap: wrap;
-		gap: 2px;
-		max-width: 200px;
+		gap: 4px;
+		max-width: 500px;
 	}
 </style>
