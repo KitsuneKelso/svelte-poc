@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { getWord } from '$lib/api';
-	import { HangmanWord, Keyboard } from '$lib/components';
+	import { Gallows, HangmanWord, Keyboard } from '$lib/components';
 	import { hangmanGame } from '$lib/store';
 	import type { KeypressEvent } from '$lib/types';
 	import { hangman } from '$lib/utils';
@@ -64,6 +64,8 @@
 		</div>
 	{/key}
 
+	<Gallows {incorrectLetters} />
+
 	<div class="controls">
 		<span class="incorrect-letters">{incorrectLetters}</span>
 		<Keyboard
@@ -84,7 +86,6 @@
 
 <style>
 	section {
-		border: 2px solid rebeccapurple;
 		display: flex;
 		flex-direction: column;
 		align-items: center;
@@ -93,7 +94,6 @@
 	}
 
 	.header {
-		border-bottom: 2px solid rebeccapurple;
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
@@ -126,6 +126,7 @@
 		flex-direction: column;
 		justify-content: flex-end;
 		gap: 20px;
+		padding-bottom: 40px;
 	}
 
 	.incorrect-letters {
