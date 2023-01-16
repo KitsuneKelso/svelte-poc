@@ -66,7 +66,11 @@
 
 	<div class="controls">
 		<span class="incorrect-letters">{incorrectLetters}</span>
-		<Keyboard on:keypress={handleLetter} />
+		<Keyboard
+			on:keypress={handleLetter}
+			disabled={hasLost || hasWon}
+			disabledLetters={$hangmanGame.guessedLetters}
+		/>
 	</div>
 </section>
 

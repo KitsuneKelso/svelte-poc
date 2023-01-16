@@ -3,6 +3,9 @@
 	import { isLetter } from '$lib/utils';
 	import { createEventDispatcher } from 'svelte';
 
+	export let disabled: boolean;
+	export let disabledLetters: string[];
+
 	const dispatch = createEventDispatcher();
 
 	function dispatchKeypress(letter: string) {
@@ -14,6 +17,10 @@
 	}
 
 	function handleKeydown(event: KeyboardEvent) {
+		if (disabled || disabledLetters.includes(event.key)) {
+			return;
+		}
+
 		if (isLetter(event.key)) {
 			dispatchKeypress(event.key);
 		}
@@ -24,7 +31,11 @@
 
 <div class="keyboard">
 	{#each letters as letter}
-		<button class="key" on:click={() => handleClick(letter)}>
+		<button
+			class="key"
+			on:click={() => handleClick(letter)}
+			disabled={disabled || disabledLetters.includes(letter)}
+		>
 			<code>{letter}</code>
 		</button>
 	{/each}
