@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { getWord } from '$lib/api';
 	import { Gallows, HangmanWord, Keyboard } from '$lib/components';
+	import { MAX_NUMBER_OF_GUESSES } from '$lib/constants';
 	import { hangmanGame } from '$lib/store';
 	import type { KeypressEvent } from '$lib/types';
 	import { hangman } from '$lib/utils';
@@ -11,6 +12,7 @@
 	let loading = false;
 
 	$: incorrectLetters = hangman.incorrectLetters($hangmanGame.word, $hangmanGame.guessedLetters);
+	$: onFinalGuess = incorrectLetters.length === MAX_NUMBER_OF_GUESSES - 1;
 	$: hasWon = hangman.hasWon($hangmanGame.word, $hangmanGame.guessedLetters);
 	$: hasLost = hangman.hasLost($hangmanGame.word, $hangmanGame.guessedLetters);
 
@@ -59,7 +61,7 @@
 			{#if loading || !$hangmanGame.word}
 				<span><i>Loading new word...</i></span>
 			{:else}
-				<HangmanWord />
+				<HangmanWord {onFinalGuess} {hasLost} {hasWon} />
 			{/if}
 		</div>
 	{/key}
@@ -124,6 +126,7 @@
 		flex-grow: 1;
 		display: flex;
 		flex-direction: column;
+		align-items: center;
 		justify-content: flex-end;
 		gap: 20px;
 		padding-bottom: 40px;
