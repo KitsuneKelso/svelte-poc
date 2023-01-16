@@ -68,6 +68,16 @@
 
 	<Gallows {incorrectLetters} />
 
+	<span class="message">
+		{#if hasLost}
+			Game over! The word was: <b>{$hangmanGame.word}</b>
+		{:else if hasWon}
+			Congratulations, you guessed the word!
+		{:else}
+			&nbsp;
+		{/if}
+	</span>
+
 	<div class="controls">
 		<span class="incorrect-letters">{incorrectLetters}</span>
 		<Keyboard
@@ -120,6 +130,10 @@
 		justify-content: center;
 		padding: 8px;
 		font-size: 2.4em;
+	}
+
+	.message {
+		font-size: 1.6em;
 	}
 
 	.controls {
