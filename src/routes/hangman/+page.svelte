@@ -3,11 +3,16 @@
 	import { HangmanWord, Keyboard } from '$lib/components';
 	import { hangmanGame } from '$lib/store';
 	import type { KeypressEvent } from '$lib/types';
+	import { hangman } from '$lib/utils';
 	import { onMount } from 'svelte';
 	import { fly } from 'svelte/transition';
 
 	let error = false;
 	let loading = false;
+
+	$: incorrectLetters = hangman.incorrectLetters($hangmanGame.word, $hangmanGame.guessedLetters);
+	$: hasWon = hangman.hasWon($hangmanGame.word, $hangmanGame.guessedLetters);
+	$: hasLost = hangman.hasLost($hangmanGame.word, $hangmanGame.guessedLetters);
 
 	const newGame = async () => {
 		error = false;
@@ -60,6 +65,7 @@
 	{/key}
 
 	<div class="controls">
+		<span class="incorrect-letters">{incorrectLetters}</span>
 		<Keyboard on:keypress={handleLetter} />
 	</div>
 </section>
@@ -68,6 +74,8 @@
 	<code><b><u>Debugger</u></b></code>
 	<code><b>Word:</b> {$hangmanGame.word ? $hangmanGame.word : ''}</code>
 	<code><b>Guessed:</b> {$hangmanGame.guessedLetters}</code>
+	<code><b>Has won:</b> {hasWon}</code>
+	<code><b>Has lost:</b> {hasLost}</code>
 </div>
 
 <style>
@@ -111,14 +119,21 @@
 	.controls {
 		flex-grow: 1;
 		display: flex;
-		align-items: flex-end;
+		flex-direction: column;
+		justify-content: flex-end;
+		gap: 20px;
+	}
+
+	.incorrect-letters {
+		color: red;
+		font-size: 1.6em;
 	}
 
 	.debugger {
 		position: fixed;
 		bottom: 20px;
 		right: 20px;
-		min-width: 200px;
+		left: 20px;
 		display: flex;
 		flex-direction: column;
 		background: black;

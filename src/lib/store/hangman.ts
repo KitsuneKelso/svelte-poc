@@ -6,7 +6,10 @@ interface hangmanStore {
 }
 
 function createHangmanGame() {
-	const { subscribe, set, update } = writable<hangmanStore>({ word: null, guessedLetters: [] });
+	const { subscribe, set, update } = writable<hangmanStore>({
+		word: null,
+		guessedLetters: []
+	});
 
 	const setNewWord = (word: string) => {
 		update((self) => {
