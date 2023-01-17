@@ -46,66 +46,51 @@
 	onMount(newGame);
 </script>
 
-<svelte:head>
-	<title>Hangman</title>
-	<meta name="description" content="Hangman game written using Svelte" />
-</svelte:head>
+<div class="header">
+	<span class="title">Svelte Hangman</span>
+	<button on:click={newGame}>New Game</button>
+</div>
 
-<section>
-	<div class="header">
-		<span class="title">Svelte Hangman</span>
-		<button on:click={newGame}>New Game</button>
-	</div>
+{#if error}
+	<p class="error">Something went wrong.</p>
+{/if}
 
-	{#if error}
-		<p class="error">Something went wrong.</p>
-	{/if}
-
-	{#key word}
-		<div class="word" in:fly={{ y: -20 }}>
-			{#if loading || !word}
-				<span><i>Loading new word...</i></span>
-			{:else}
-				<HangmanWord {onFinalGuess} {hasLost} {hasWon} />
-			{/if}
-		</div>
-	{/key}
-
-	<Gallows {incorrectLetters} />
-
-	<span class="message">
-		{#if hasLost}
-			Game over! The word was: <b>{word}</b>
-		{:else if hasWon}
-			Congratulations, you guessed the word!
+{#key word}
+	<div class="word" in:fly={{ y: -20 }}>
+		{#if loading || !word}
+			<span><i>Loading new word...</i></span>
 		{:else}
-			&nbsp;
+			<HangmanWord {onFinalGuess} {hasLost} {hasWon} />
 		{/if}
-	</span>
-
-	<div class="controls">
-		<span class="incorrect-letters">{incorrectLetters}</span>
-		<Keyboard
-			on:keypress={handleLetter}
-			disabled={hasLost || hasWon}
-			disabledLetters={guessedLetters}
-		/>
 	</div>
-</section>
+{/key}
+
+<Gallows {incorrectLetters} />
+
+<span class="message">
+	{#if hasLost}
+		Game over! The word was: <b>{word}</b>
+	{:else if hasWon}
+		Congratulations, you guessed the word!
+	{:else}
+		&nbsp;
+	{/if}
+</span>
+
+<div class="controls">
+	<span class="incorrect-letters">{incorrectLetters}</span>
+	<Keyboard
+		on:keypress={handleLetter}
+		disabled={hasLost || hasWon}
+		disabledLetters={guessedLetters}
+	/>
+</div>
 
 {#if isDebugging}
 	<Debugger entries={{ word, guessedLetters, hasWon, hasLost }} />
 {/if}
 
 <style>
-	section {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		justify-content: flex-start;
-		flex-grow: 1;
-	}
-
 	.header {
 		display: flex;
 		align-items: center;
@@ -118,7 +103,6 @@
 	.title {
 		font-size: 2em;
 	}
-
 	.error {
 		color: red;
 		font-weight: bold;
