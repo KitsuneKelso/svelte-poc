@@ -1,7 +1,14 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import { getWord } from '$lib/api';
-	import { Debugger, Gallows, HangmanWord, Keyboard } from '$lib/components';
+	import {
+		Debugger,
+		Gallows,
+		HangmanWord,
+		Keyboard,
+		Loading,
+		StatusMessage
+	} from '$lib/components';
 	import { MAX_NUMBER_OF_GUESSES } from '$lib/constants';
 	import { hangmanGame } from '$lib/store';
 	import type { KeypressEvent } from '$lib/types';
@@ -46,10 +53,10 @@
 	onMount(newGame);
 </script>
 
-<div class="header">
+<header>
 	<span class="title">Svelte Hangman</span>
 	<button on:click={newGame}>New Game</button>
-</div>
+</header>
 
 {#if error}
 	<p class="error">Something went wrong.</p>
@@ -58,7 +65,7 @@
 {#key word}
 	<div class="word" in:fly={{ y: -20 }}>
 		{#if loading || !word}
-			<span><i>Loading new word...</i></span>
+			<Loading />
 		{:else}
 			<HangmanWord {onFinalGuess} {hasLost} {hasWon} />
 		{/if}
@@ -66,16 +73,7 @@
 {/key}
 
 <Gallows {incorrectLetters} />
-
-<span class="message">
-	{#if hasLost}
-		Game over! The word was: <b>{word}</b>
-	{:else if hasWon}
-		Congratulations, you guessed the word!
-	{:else}
-		&nbsp;
-	{/if}
-</span>
+<StatusMessage {word} {hasWon} {hasLost} />
 
 <div class="controls">
 	<span class="incorrect-letters">{incorrectLetters}</span>
@@ -91,7 +89,7 @@
 {/if}
 
 <style>
-	.header {
+	header {
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
@@ -109,16 +107,8 @@
 	}
 
 	.word {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		justify-content: center;
 		padding: 8px;
 		font-size: 2.4em;
-	}
-
-	.message {
-		font-size: 1.6em;
 	}
 
 	.controls {
