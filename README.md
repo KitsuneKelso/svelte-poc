@@ -59,3 +59,7 @@ These are the routes besides the standard Svelte routes that I have set up.
 ### /hangman
 
 This is a simple implementation of [Hangman, the classic guessing game](<https://en.wikipedia.org/wiki/Hangman_(game)>). A random word will be fetched from [the API Ninjas Random Word endpoint](https://api-ninjas.com/api/randomword).
+
+#### Debugging
+
+When visiting the `/hangman` route, simply add the `?debugger` query parameter to get the debugger console for the game to appear: [/hangman?debugger](http://127.0.0.1:5173/hangman?debugger)

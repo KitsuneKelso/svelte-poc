@@ -1,6 +1,7 @@
 <script lang="ts">
+	import { page } from '$app/stores';
 	import { getWord } from '$lib/api';
-	import { Gallows, HangmanWord, Keyboard } from '$lib/components';
+	import { Debugger, Gallows, HangmanWord, Keyboard } from '$lib/components';
 	import { MAX_NUMBER_OF_GUESSES } from '$lib/constants';
 	import { hangmanGame } from '$lib/store';
 	import type { KeypressEvent } from '$lib/types';
@@ -11,10 +12,14 @@
 	let error = false;
 	let loading = false;
 
-	$: incorrectLetters = hangman.incorrectLetters($hangmanGame.word, $hangmanGame.guessedLetters);
+	$: word = $hangmanGame.word;
+	$: guessedLetters = $hangmanGame.guessedLetters;
+	$: incorrectLetters = hangman.incorrectLetters(word, guessedLetters);
 	$: onFinalGuess = incorrectLetters.length === MAX_NUMBER_OF_GUESSES - 1;
-	$: hasWon = hangman.hasWon($hangmanGame.word, $hangmanGame.guessedLetters);
-	$: hasLost = hangman.hasLost($hangmanGame.word, $hangmanGame.guessedLetters);
+	$: hasWon = hangman.hasWon(word, guessedLetters);
+	$: hasLost = hangman.hasLost(word, guessedLetters);
+
+	const isDebugging = $page.url.searchParams.has('debugger');
 
 	const newGame = async () => {
 		error = false;
@@ -33,7 +38,7 @@
 
 	const handleLetter = (event: KeypressEvent) => {
 		const pressedLetter = event.detail.letter.toUpperCase();
-		if (!$hangmanGame.guessedLetters.includes(pressedLetter)) {
+		if (!guessedLetters.includes(pressedLetter)) {
 			hangmanGame.guessLetter(pressedLetter);
 		}
 	};
@@ -56,9 +61,9 @@
 		<p class="error">Something went wrong.</p>
 	{/if}
 
-	{#key $hangmanGame.word}
+	{#key word}
 		<div class="word" in:fly={{ y: -20 }}>
-			{#if loading || !$hangmanGame.word}
+			{#if loading || !word}
 				<span><i>Loading new word...</i></span>
 			{:else}
 				<HangmanWord {onFinalGuess} {hasLost} {hasWon} />
@@ -70,7 +75,7 @@
 
 	<span class="message">
 		{#if hasLost}
-			Game over! The word was: <b>{$hangmanGame.word}</b>
+			Game over! The word was: <b>{word}</b>
 		{:else if hasWon}
 			Congratulations, you guessed the word!
 		{:else}
@@ -83,18 +88,14 @@
 		<Keyboard
 			on:keypress={handleLetter}
 			disabled={hasLost || hasWon}
-			disabledLetters={$hangmanGame.guessedLetters}
+			disabledLetters={guessedLetters}
 		/>
 	</div>
 </section>
 
-<div class="debugger">
-	<code><b><u>Debugger</u></b></code>
-	<code><b>Word:</b> {$hangmanGame.word ? $hangmanGame.word : ''}</code>
-	<code><b>Guessed:</b> {$hangmanGame.guessedLetters}</code>
-	<code><b>Has won:</b> {hasWon}</code>
-	<code><b>Has lost:</b> {hasLost}</code>
-</div>
+{#if isDebugging}
+	<Debugger entries={{ word, guessedLetters, hasWon, hasLost }} />
+{/if}
 
 <style>
 	section {
@@ -149,17 +150,5 @@
 	.incorrect-letters {
 		color: red;
 		font-size: 1.6em;
-	}
-
-	.debugger {
-		position: fixed;
-		bottom: 20px;
-		right: 20px;
-		left: 20px;
-		display: flex;
-		flex-direction: column;
-		background: black;
-		color: white;
-		padding: 8px;
 	}
 </style>
