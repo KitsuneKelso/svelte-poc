@@ -10,7 +10,7 @@
 	let letters = word?.split('');
 </script>
 
-<div class="hangman-word" class:onFinalGuess class:hasLost class:hasWon>
+<div class:onFinalGuess class:hasLost class:hasWon>
 	{#if letters && letters.length > 0}
 		{#each letters as letter}
 			<Letter {letter} />
@@ -28,7 +28,7 @@
 			color: red;
 		}
 	}
-	.hangman-word {
+	div {
 		display: flex;
 		gap: 8px;
 	}

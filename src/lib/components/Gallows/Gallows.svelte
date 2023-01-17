@@ -3,43 +3,43 @@
 	$: numberOfGuesses = incorrectLetters.length;
 </script>
 
-<div class="gallows">
-	<div class="gallows-piece base" />
+<div>
+	<div class="shape base" />
 	{#if numberOfGuesses > 0}
-		<div class="gallows-piece vertical" />
+		<div class="shape vertical" />
 	{/if}
 	{#if numberOfGuesses > 1}
-		<div class="gallows-piece horizontal" />
+		<div class="shape horizontal" />
 	{/if}
 	{#if numberOfGuesses > 2}
-		<div class="gallows-piece diagonal" />
+		<div class="shape diagonal" />
 	{/if}
 	{#if numberOfGuesses > 3}
-		<div class="gallows-piece rope" />
+		<div class="shape rope" />
 	{/if}
 	{#if numberOfGuesses > 4}
-		<div class="gallows-piece head" />
+		<div class="shape head" />
 	{/if}
 	{#if numberOfGuesses > 5}
-		<div class="gallows-piece body" />
+		<div class="shape body" />
 	{/if}
 	{#if numberOfGuesses > 6}
-		<div class="gallows-piece arm left-arm" />
-		<div class="gallows-piece arm right-arm" />
+		<div class="shape arm left" />
+		<div class="shape arm right" />
 	{/if}
 	{#if numberOfGuesses > 7}
-		<div class="gallows-piece leg left-leg" />
-		<div class="gallows-piece leg right-leg" />
+		<div class="shape leg left" />
+		<div class="shape leg right" />
 	{/if}
 </div>
 
 <style>
-	.gallows {
+	div {
 		position: relative;
 		width: 200px;
 		height: 200px;
 	}
-	.gallows-piece {
+	.shape {
 		position: absolute;
 		background-color: black;
 	}
@@ -94,24 +94,16 @@
 		width: 2px;
 		height: 20px;
 	}
-	.left-arm {
-		left: 124px;
-		transform: rotate(20deg);
-	}
-	.right-arm {
-		left: 132px;
-		transform: rotate(-20deg);
-	}
 	.leg {
 		bottom: 80px;
 		width: 2px;
 		height: 24px;
 	}
-	.left-leg {
+	.left {
 		left: 124px;
 		transform: rotate(20deg);
 	}
-	.right-leg {
+	.right {
 		left: 132px;
 		transform: rotate(-20deg);
 	}

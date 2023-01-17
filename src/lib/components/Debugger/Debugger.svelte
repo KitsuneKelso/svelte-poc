@@ -2,7 +2,7 @@
 	export let entries: Record<string, any>;
 </script>
 
-<div class="debugger">
+<div>
 	<code><b><u>Debugger</u></b></code>
 	{#each Object.entries(entries) as [key, value]}
 		<code><b>{key}:</b> {value}</code>
@@ -10,7 +10,7 @@
 </div>
 
 <style>
-	.debugger {
+	div {
 		position: fixed;
 		bottom: 20px;
 		right: 20px;

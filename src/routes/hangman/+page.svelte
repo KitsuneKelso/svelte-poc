@@ -59,12 +59,12 @@
 </header>
 
 {#if error}
-	<p class="error">Something went wrong.</p>
+	<p in:fly={{ y: 200 }} class="error">Something went wrong.</p>
 {/if}
 
 {#key word}
 	<div class="word" in:fly={{ y: -20 }}>
-		{#if loading || !word}
+		{#if loading}
 			<Loading />
 		{:else}
 			<HangmanWord {onFinalGuess} {hasLost} {hasWon} />

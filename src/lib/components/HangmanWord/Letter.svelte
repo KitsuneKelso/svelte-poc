@@ -9,10 +9,12 @@
 
 {#key guessed}
 	<span in:fly={{ y: 20 }}>
-		{#if guessed}
-			{letter.toUpperCase()}
-		{:else}
-			_
-		{/if}
+		<code>
+			{#if guessed}
+				{letter.toUpperCase()}
+			{:else}
+				_
+			{/if}
+		</code>
 	</span>
 {/key}

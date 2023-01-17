@@ -4,14 +4,14 @@
 	export let onClick: () => void;
 </script>
 
-<div class="container" class:disabled>
+<div class:disabled>
 	<button {disabled} on:click={onClick}>
 		<code>{letter}</code>
 	</button>
 </div>
 
 <style>
-	.container {
+	div {
 		box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.3);
 	}
 

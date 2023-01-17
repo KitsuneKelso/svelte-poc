@@ -1,7 +1,9 @@
+import { endpoints } from '$lib/constants';
+
 const getWord = async () => {
 	const API_KEY = import.meta.env.VITE_API_KEY;
 
-	const response = await fetch('https://api.api-ninjas.com/v1/randomword', {
+	const response = await fetch(endpoints.randomWord, {
 		headers: { 'X-Api-Key': API_KEY }
 	}).then((res) => res.json());
 

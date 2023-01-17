@@ -30,7 +30,7 @@
 
 <svelte:window on:keydown={handleKeydown} />
 
-<div class="keyboard">
+<div>
 	{#each letters as letter}
 		<Key
 			{letter}
@@ -41,7 +41,7 @@
 </div>
 
 <style>
-	.keyboard {
+	div {
 		display: flex;
 		flex-direction: row;
 		align-items: center;
