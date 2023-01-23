@@ -4,32 +4,32 @@
 </script>
 
 <div>
-	<div class="shape base" />
+	<div class="shape base" data-testid="gallows-base" />
 	{#if numberOfGuesses > 0}
-		<div class="shape vertical" />
+		<div class="shape vertical" data-testid="gallows-vertical" />
 	{/if}
 	{#if numberOfGuesses > 1}
-		<div class="shape horizontal" />
+		<div class="shape horizontal" data-testid="gallows-horizontal" />
 	{/if}
 	{#if numberOfGuesses > 2}
-		<div class="shape diagonal" />
+		<div class="shape diagonal" data-testid="gallows-diagonal" />
 	{/if}
 	{#if numberOfGuesses > 3}
-		<div class="shape rope" />
+		<div class="shape rope" data-testid="gallows-rope" />
 	{/if}
 	{#if numberOfGuesses > 4}
-		<div class="shape head" />
+		<div class="shape head" data-testid="gallows-head" />
 	{/if}
 	{#if numberOfGuesses > 5}
-		<div class="shape body" />
+		<div class="shape body" data-testid="gallows-body" />
 	{/if}
 	{#if numberOfGuesses > 6}
-		<div class="shape arm left" />
-		<div class="shape arm right" />
+		<div class="shape arm left" data-testid="gallows-left-arm" />
+		<div class="shape arm right" data-testid="gallows-right-arm" />
 	{/if}
 	{#if numberOfGuesses > 7}
-		<div class="shape leg left" />
-		<div class="shape leg right" />
+		<div class="shape leg left" data-testid="gallows-left-leg" />
+		<div class="shape leg right" data-testid="gallows-right-leg" />
 	{/if}
 </div>
 
