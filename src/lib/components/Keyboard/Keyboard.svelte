@@ -4,7 +4,9 @@
 	import { createEventDispatcher } from 'svelte';
 	import Key from './Key.svelte';
 
+	/** Disables all keys */
 	export let disabled: boolean;
+	/** Array of specifically disabled letter keys */
 	export let disabledLetters: string[];
 
 	const dispatch = createEventDispatcher();
@@ -27,6 +29,21 @@
 		}
 	}
 </script>
+
+<!--
+@component
+Keyboard component with mouse and keyboard interaction.
+
+__Usage:__
+
+```tsx
+<Keyboard on:keypress={handleKeypress} disabled={false} disabledLetters={['A', 'B', 'C']} />
+```
+The `on:keypress` event will return an event with a letter in the event detail:
+```ts
+event.detail.letter
+```
+-->
 
 <svelte:window on:keydown={handleKeydown} />
 

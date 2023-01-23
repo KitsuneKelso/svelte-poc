@@ -1,8 +1,21 @@
 <script lang="ts">
+	/** Label displayed on key */
 	export let letter: string;
+	/** Disable user input for key */
 	export let disabled: boolean;
+	/** Function executed when key is pressed */
 	export let onClick: () => void;
 </script>
+
+<!--
+@component
+Styled `button` for individual keyboard keys
+
+__Usage:__
+```tsx
+<Key letter="F" disabled={false} onClick={handleClick} />
+```
+-->
 
 <div class:disabled>
 	<button {disabled} on:click={onClick}>
