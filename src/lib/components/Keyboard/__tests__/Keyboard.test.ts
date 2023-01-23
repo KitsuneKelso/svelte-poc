@@ -1,4 +1,3 @@
-import '@testing-library/jest-dom';
 import { letters } from '$lib/constants';
 import { render, screen } from '@testing-library/svelte';
 import { describe } from 'vitest';

@@ -1,4 +1,3 @@
-import '@testing-library/jest-dom';
 import { fireEvent, render, screen } from '@testing-library/svelte';
 import { vi } from 'vitest';
 import Key from '../Key.svelte';

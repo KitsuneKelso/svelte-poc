@@ -1,4 +1,3 @@
-import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/svelte';
 import { describe } from 'vitest';
 import Loading from '../Loading.svelte';

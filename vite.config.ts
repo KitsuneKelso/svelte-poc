@@ -6,7 +6,8 @@ const config: UserConfig = {
 	test: {
 		include: ['src/**/*.{test,spec}.{js,ts}'],
 		globals: true,
-		environment: 'jsdom'
+		environment: 'jsdom',
+		setupFiles: ['src/setupTest.ts']
 	}
 };
 

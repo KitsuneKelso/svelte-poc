@@ -1,4 +1,3 @@
-import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/svelte';
 import { describe, expect, it } from 'vitest';
 import Debugger from '..';
