@@ -99,7 +99,7 @@
 	}
 
 	.title {
-		font-size: 2em;
+		font-size: 2rem;
 	}
 	.error {
 		color: red;
@@ -108,7 +108,7 @@
 
 	.word {
 		padding: 8px;
-		font-size: 2.4em;
+		font-size: 2.4rem;
 	}
 
 	.controls {
@@ -123,6 +123,6 @@
 
 	.incorrect-letters {
 		color: red;
-		font-size: 1.6em;
+		font-size: 1.6rem;
 	}
 </style>

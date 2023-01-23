@@ -16,6 +16,6 @@
 
 <style>
 	span {
-		font-size: 1.6em;
+		font-size: 1.6rem;
 	}
 </style>
